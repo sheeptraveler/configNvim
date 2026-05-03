@@ -13,6 +13,20 @@ return {
     end,
   },
 
+  -- test new blink
+  -- { import = "nvchad.blink.lazyspec" },
+
+  -- {
+  -- 	"nvim-treesitter/nvim-treesitter",
+  -- 	opts = {
+  -- 		ensure_installed = {
+  -- 			"vim", "lua", "vimdoc",
+  --      "html", "css"
+  -- 		},
+  -- 	},
+  -- },
+
+
   --MY CONFIGs
   -- {
   --   "lervag/vimtex",
@@ -49,21 +63,30 @@ return {
 
     dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
     config = function()
-      local dap = require("dap")
-      local dapui = require("dapui")
-      dapui.setup()
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
+      require "configs.dapui"
     end
   },
   {
     "github/copilot.vim",
+    event = "InsertEnter",
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "github/copilot.vim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require("CopilotChat").setup({
+       window = {
+          border = "rounded",
+          width = 0.8,
+          height = 0.6,
+        },
+      })
+    end,
   },
 }

@@ -1,39 +1,41 @@
--- load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
-
-local lspconfig = require "lspconfig"
-
--- EXAMPLE
-local servers = { "html", "cssls", "clangd", "pyright", "ltex", "ruff" }
-local nvlsp = require "nvchad.configs.lspconfig"
-
--- lsps with default config
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  }
-end
-
--- configuring single server, example: typescript
--- lspconfig.ts_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
--- }
-
+--------------------------------------------------
 -- MY CONFIGS
 --LATEX ltex-ls
-  lspconfig.ltex.setup{
+local filetypes = {
+  'bib',
+  'gitcommit',
+  'markdown',
+  'org',
+  'plaintex',
+  'rst',
+  'rnoweb',
+  'tex',
+  'pandoc',
+  'quarto',
+  'rmd',
+  'context',
+  'html',
+  'xhtml',
+  'mail',
+  'text',
+}
+
+vim.lsp.config.ltex = {
+-- require('lspconfig').ltex.setup({
+  cmd = { 'ltex-ls' },
+  filetypes = filetypes,
+  root_markers = {'.git'},
   settings = {
     ltex = {
+      enabled = filetypes,
       language = "pt-BR",
-    }
-  }
+    },
+  },
 }
+
 --PYRIGHT
-  lspconfig.pyright.setup({
+  vim.lsp.config.pyright = {
     filetypes = {"python"},
     settings = {
       python = {
@@ -45,4 +47,12 @@ end
         }
       }
     }
-})
+}
+--------------------------------------------------
+local servers = { "html", "cssls", "clangd", "ltex", "pyright", "ruff", "sqls" }
+vim.lsp.enable(servers)
+
+-- read :h vim.lsp.config for changing options of lsp servers 
+
+
+

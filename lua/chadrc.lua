@@ -1,8 +1,8 @@
--- This file nehds to have same structure as nvconfig.lua 
--- https://github.com/NvChad/ui/blob/v2.5/lua/nvconfig.lua
+-- This file needs to have same structure as nvconfig.lua 
+-- https://github.com/NvChad/ui/blob/v3.0/lua/nvconfig.lua
 -- Please read that file to know all available options :( 
 
---@type ChadrcConfig
+---@type ChadrcConfig
 local M = {}
 
 M.base46 = {
@@ -13,8 +13,18 @@ M.base46 = {
 	-- 	["@comment"] = { italic = true },
 	-- },
 }
+
+-- M.nvdash = { load_on_startup = true }
+-- M.ui = {
+--       tabufline = {
+--          lazyload = false
+--      }
+-- }
+
+-- MY CONFIGS
 M.mason = {
-  pkgs = {"clangd", "clang-format", "codelldb", "pyright", "ltex-ls", "ruff", "mypy", "black", "debugpy"}
+  pkgs = { "clangd", "clang-format", "codelldb", "pyright", "ltex-ls", "ruff", "mypy", "black", "debugpy",
+           "sqls"  }
 }
 
 return M
